@@ -15,7 +15,7 @@ parameters:
     type: string
     default: "jahia"
     description: "Docker registry (i.e. Docker Hub) repository"
-  useranme:
+  username:
     type: env_var_name
     default: DOCKERHUB_LOGIN
     description: "Docker registry (i.e. Docker Hub) username. Requires read/write access"
@@ -37,7 +37,7 @@ steps:
         PARAM_VERSION: <<parameters.version>>
         PARAM_ORG: <<parameters.org>>
         PARAM_REPO: <<parameters.repo>>
-        PARAM_USERNAME: <<parameters.useranme>>
+        PARAM_USERNAME: <<parameters.username>>
         PARAM_PASSWORD: <<parameters.password>>
       name: Generate missing Docker tags
       command: <<include(scripts/docker-tags.sh)>>
