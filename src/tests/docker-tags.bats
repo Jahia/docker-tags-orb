@@ -16,7 +16,8 @@ log() {
     export PARAM_REPO="jahia"
     # Capture the output of our "DockerTags" function
     result=$(DockerTags)
+    resultsByLine(${result[@]})
     # [[ $result == "Checking version: 1.0.0.0*" ]]
-    [[ ${result[0]} == "Checking version: ${PARAM_VERSION} against repository: ${PARAM_ORG}/${PARAM_REPO}" ]]
-    [[ ${result[1]} == "Hello" ]]
+    [[ ${resultsByLine[0]} == "Checking version: ${PARAM_VERSION} against repository: ${PARAM_ORG}/${PARAM_REPO}" ]]
+    [[ ${resultsByLine[1]} == "Hello" ]]
 }
