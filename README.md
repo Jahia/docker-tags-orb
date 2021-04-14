@@ -3,6 +3,7 @@
 [![CircleCI Build Status](https://circleci.com/gh/Jahia/docker-tags-orb.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/Jahia/docker-tags-orb) [![CircleCI Orb Version](https://badges.circleci.com/orbs/jahia/docker-tags-orb)](https://circleci.com/orbs/registry/orb/jahia/docker-tags-orb) [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/Jahia/docker-tags-orb/master/LICENSE) [![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
 
 
+
 A CircleCI orb to facilitate the tagging of Docker images and the creation of shorter versions of the tags acting as aliases to full versions of the image.
 
 When provided with a version, the Orb will automatically check other versions already published to the registry (only Docker Hub for now) and determine all of the tags that needs to be generated.
@@ -99,3 +100,10 @@ latest-SNAPSHOT is : 8.0.3.0-SNAPSHOT , require tag update
 8.0-SNAPSHOT is : 8.0.3.0-SNAPSHOT , require tag update
 8.0.3-SNAPSHOT is : 8.0.3.0-SNAPSHOT , require tag upda
 ```
+
+# Development
+
+Complex orbs can be found here:
+ * https://github.com/CircleCI-Public/slack-orb
+ * https://github.com/CircleCI-Public/orb-tools-orb
+

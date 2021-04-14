@@ -1,6 +1,11 @@
+Setup() {
+    USERNAME=$(eval echo "$PARAM_USERNAME")
+}
+
 DockerTags() {
     echo Checking version: "${PARAM_VERSION}" against repository: "${PARAM_ORG}"/"${PARAM_REPO}"
     echo Will be using username: "${PARAM_USERNAME}"
+    echo Will be using username: "${USERNAME}"
     echo Is dry-run: "${PARAM_DRYRUN}"
     
     PARAM_VERSION_MAJOR=$(echo "${PARAM_VERSION}" | awk -F . '{print $1}' )
@@ -64,6 +69,11 @@ DockerTags() {
     else
         echo "${PARAM_VERSION_MAJOR}"."${PARAM_VERSION_MINOR}"."${PARAM_VERSION_HF}""${PARAM_VERSION_CLASSIFIER}" is : "$MATCHING3" , unchanged
     fi    
+}
+
+Main() {
+    Setup
+    DockerTags
 }
 
 # Will not run if sourced for bats-core tests.
