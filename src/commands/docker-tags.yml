@@ -29,6 +29,10 @@ parameters:
     description: "Dry Run: Does not push changes if true"
 steps:
   - run:
+      name: Check parameter
+      command: |
+        echo <<parameters.useranme>>
+  - run:
       environment:
         PARAM_VERSION: <<parameters.version>>
         PARAM_ORG: <<parameters.org>>
