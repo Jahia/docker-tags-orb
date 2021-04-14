@@ -26,12 +26,12 @@ parameters:
   dry-run:
     type: boolean
     default: true
-    description: "Dry Run: Do not push changes"    
+    description: "Dry Run: Do not push changes"
 steps:
   - run:
       environment:
-        PARAM_ORG: <<parameters.org>>
         PARAM_VERSION: <<parameters.version>>
+        PARAM_ORG: <<parameters.org>>
         PARAM_REPO: <<parameters.repo>>
         PARAM_USERNAME: <<parameters.useranme>>
         PARAM_PASSWORD: <<parameters.password>>
