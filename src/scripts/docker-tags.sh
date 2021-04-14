@@ -87,6 +87,7 @@ DockerTags() {
 Main() {
     Setup
     GetToken
+    GetVersions
     DockerTags
     
 }
