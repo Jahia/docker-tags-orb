@@ -37,8 +37,16 @@ GetVersions() {
 
 DockerTags() {
     echo Checking version: "${PARAM_VERSION}" against repository: "${PARAM_ORG}"/"${PARAM_REPO}"
-    
-    # VERSIONS=$(curl -s -H "Authorization: Bearer ${TOKEN}" https://${API_DOMAIN}/v2/${DOCKER_HUB_ORG}/${DOCKER_HUB_REPO}/tags/list | jq -r '.tags[]' | grep -E "^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$PARAM_VERSION_CLASSIFIER$")
+
+    REGISTRY_VERSIONS=$(echo "$VERSIONS" | awk -vORS=, '{ print $1 }' | sed 's/, $/\n/')   
+    echo "$(date +'%d %B %Y - %k:%M') - The following tags exists in ${PARAM_ORG}/${PARAM_REPO}: ${REGISTRY_VERSIONS}"
+
+    if ! (echo "$VERSIONS" | grep "$PARAM_VERSION"); then   
+        echo "$(date +'%d %B %Y - %k:%M') - Version ${PARAM_VERSION} does not exist in the repository"
+        echo "$(date +'%d %B %Y - %k:%M') - The orb is meant at tagging existing images"
+        echo "$(date +'%d %B %Y - %k:%M') - The orb will TERMINATE"
+        exit 1
+    fi
 
     # if ! (echo "$VERSIONS" | grep $PARAM_VERSION); then
     if ! (echo "$VERSIONS" | grep "$PARAM_VERSION"); then
@@ -50,7 +58,6 @@ DockerTags() {
 
     VERSIONS_ONELINE=$(echo "$VERSIONS" | awk -vORS=, '{ print $1 }' | sed 's/, $/\n/')
     echo "$(date +'%d %B %Y - %k:%M') - The following tags exists: ${VERSIONS}"
-    echo "$(date +'%d %B %Y - %k:%M') - The following tags exists: ${VERSIONS_ONELINE}"
 
     # echo All versions : "$VERSIONS"
 
