@@ -36,29 +36,29 @@ DockerTags() {
     MATCHING3=$(echo "$VERSIONS" | grep -E "^${PARAM_VERSION_MAJOR}\.${PARAM_VERSION_MINOR}\.${PARAM_VERSION_HF}\." | tail -1)
 
 
-    if [ "$LATEST" == "$PARAM_VERSION" ]; then
-        echo latest${PARAM_VERSION_CLASSIFIER} is : $LATEST , require tag update
-    else
-        echo latest${PARAM_VERSION_CLASSIFIER} is : $LATEST , unchanged
-    fi
+    # if [ "$LATEST" == "$PARAM_VERSION" ]; then
+    #     echo latest${PARAM_VERSION_CLASSIFIER} is : $LATEST , require tag update
+    # else
+    #     echo latest${PARAM_VERSION_CLASSIFIER} is : $LATEST , unchanged
+    # fi
 
-    if [ "$MATCHING1" == "$PARAM_VERSION" ]; then
-        echo ${PARAM_VERSION_MAJOR}${PARAM_VERSION_CLASSIFIER} is : $MATCHING1 , require tag update
-    else
-        echo ${PARAM_VERSION_MAJOR}${PARAM_VERSION_CLASSIFIER} is : $MATCHING1 , unchanged
-    fi
+    # if [ "$MATCHING1" == "$PARAM_VERSION" ]; then
+    #     echo ${PARAM_VERSION_MAJOR}${PARAM_VERSION_CLASSIFIER} is : $MATCHING1 , require tag update
+    # else
+    #     echo ${PARAM_VERSION_MAJOR}${PARAM_VERSION_CLASSIFIER} is : $MATCHING1 , unchanged
+    # fi
 
-    if [ "$MATCHING2" == "$PARAM_VERSION" ]; then
-        echo ${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}${PARAM_VERSION_CLASSIFIER} is : $MATCHING2 , require tag update
-    else
-        echo ${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}${PARAM_VERSION_CLASSIFIER} is : $MATCHING2 , unchanged
-    fi
+    # if [ "$MATCHING2" == "$PARAM_VERSION" ]; then
+    #     echo ${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}${PARAM_VERSION_CLASSIFIER} is : $MATCHING2 , require tag update
+    # else
+    #     echo ${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}${PARAM_VERSION_CLASSIFIER} is : $MATCHING2 , unchanged
+    # fi
 
-    if [ "$MATCHING3" == "$PARAM_VERSION" ]; then
-        echo ${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}.${PARAM_VERSION_HF}${PARAM_VERSION_CLASSIFIER} is : $MATCHING3 , require tag update
-    else
-        echo ${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}.${PARAM_VERSION_HF}${PARAM_VERSION_CLASSIFIER} is : $MATCHING3 , unchanged
-    fi    
+    # if [ "$MATCHING3" == "$PARAM_VERSION" ]; then
+    #     echo ${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}.${PARAM_VERSION_HF}${PARAM_VERSION_CLASSIFIER} is : $MATCHING3 , require tag update
+    # else
+    #     echo ${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}.${PARAM_VERSION_HF}${PARAM_VERSION_CLASSIFIER} is : $MATCHING3 , unchanged
+    # fi    
 }
 
 # Will not run if sourced for bats-core tests.
