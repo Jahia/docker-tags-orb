@@ -33,7 +33,6 @@ GetVersions() {
     # TOKEN=$(curl -s -X GET -u ${USERNAME}:${PASSWORD} "https://${AUTH_DOMAIN}/token?service=${AUTH_SERVICE}&scope=${AUTH_SCOPE}&offline_token=${AUTH_OFFLINE_TOKEN}&client_id=${AUTH_CLIENT_ID}" | jq -r '.token')
     VERSIONS=$(curl -s -H "Authorization: Bearer ${TOKEN}" https://${API_DOMAIN}/v2/"${PARAM_ORG}"/"${PARAM_REPO}"/tags/list | jq -r '.tags[]' | grep -E "^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$PARAM_VERSION_CLASSIFIER$")
     echo "$(date +'%d %B %Y - %k:%M') - GetVersions: Fetch complete"
-
 }
 
 DockerTags() {
@@ -49,7 +48,9 @@ DockerTags() {
 
     VERSIONS=$(echo "$VERSIONS" | sort --version-sort)
 
+    VERSIONS_ONELINE = echo "$VERSIONS" | awk -vORS=, '{ print $1 }' | sed 's/,$/\n/'
     echo "$(date +'%d %B %Y - %k:%M') - The following tags exists: ${VERSIONS}"
+    echo "$(date +'%d %B %Y - %k:%M') - The following tags exists: ${VERSIONS_ONELINE}"
 
     # echo All versions : "$VERSIONS"
 
