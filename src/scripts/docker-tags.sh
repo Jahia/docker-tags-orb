@@ -1,5 +1,5 @@
 Setup() {    
-    echo "setup"
+    echo "Entered Setup function"
     USERNAME=$(eval echo "$PARAM_USERNAME")
 }
 
