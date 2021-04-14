@@ -1,6 +1,7 @@
 DockerTags() {
     echo Checking version: "${PARAM_VERSION}" against repository: "${PARAM_ORG}"/"${PARAM_REPO}"
     echo Will be using username: "${PARAM_USERNAME}"
+    echo Is dry-run: "${PARAM_DRYRUN}"
     
     PARAM_VERSION_MAJOR=$(echo "${PARAM_VERSION}" | awk -F . '{print $1}' )
     PARAM_VERSION_MINOR=$(echo "${PARAM_VERSION}" | awk -F . '{print $2}' )
