@@ -48,7 +48,7 @@ DockerTags() {
 
     VERSIONS=$(echo "$VERSIONS" | sort --version-sort)
 
-    VERSIONS_ONELINE = echo "$VERSIONS" | awk -vORS=, '{ print $1 }' | sed 's/,$/\n/'
+    VERSIONS_ONELINE=$(echo "$VERSIONS" | awk -vORS=, '{ print $1 }' | sed 's/,$/\n/')
     echo "$(date +'%d %B %Y - %k:%M') - The following tags exists: ${VERSIONS}"
     echo "$(date +'%d %B %Y - %k:%M') - The following tags exists: ${VERSIONS_ONELINE}"
 
