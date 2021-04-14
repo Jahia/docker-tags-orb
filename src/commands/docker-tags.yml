@@ -16,12 +16,12 @@ parameters:
     default: "jahia"
     description: "Docker registry (i.e. Docker Hub) repository"
   useranme:
-    type: string
-    default: ""
+    type: env_var_name
+    default: DOCKERHUB_LOGIN
     description: "Docker registry (i.e. Docker Hub) username. Requires read/write access"
   password:
-    type: string
-    default: ""
+    type: env_var_name
+    default: DOCKERHUB_PASSWORD
     description: "Docker registry (i.e. Docker Hub) password. Requires read/write access"
   dry-run:
     type: boolean
