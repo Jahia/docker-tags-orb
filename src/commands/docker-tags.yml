@@ -37,8 +37,8 @@ steps:
         PARAM_VERSION: <<parameters.version>>
         PARAM_ORG: <<parameters.org>>
         PARAM_REPO: <<parameters.repo>>
-        PARAM_USERNAME: "<<parameters.username>>"
-        PARAM_PASSWORD: "<<parameters.password>>"
+        PARAM_USERNAME: "$<<parameters.username>>"
+        PARAM_PASSWORD: "$<<parameters.password>>"
         PARAM_DRYRUN: <<parameters.dry-run>>
       name: Generate missing Docker tags
       command: <<include(scripts/docker-tags.sh)>>
