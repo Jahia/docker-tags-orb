@@ -23,6 +23,10 @@ parameters:
     type: string
     default: ""
     description: "Docker registry (i.e. Docker Hub) password. Needs read/write access"
+  dry-run:
+    type: boolean
+    default: true
+    description: "Dry Run: Do not push changes"    
 steps:
   - run:
       environment:
