@@ -36,8 +36,7 @@ jobs:
         parameters:
           to: 'Someone'
       # - docker-tags-orb/docker-tags
-      - docker-tags-orb/docker-tags:
-        username: 'abcde'
+      - docker-tags-orb/docker-tags
         # password: $DOCKERHUB_PASSWORD
         # username: <<parameters.DOCKERHUB_LOGIN>>
         # password: <<parameters.DOCKERHUB_LOGIN>>
