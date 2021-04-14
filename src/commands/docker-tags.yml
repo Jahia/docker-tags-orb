@@ -31,7 +31,7 @@ steps:
   - run:
       name: Check parameter
       command: |
-        echo <<parameters.useranme>>
+        echo $<<parameters.useranme>>
   - run:
       environment:
         PARAM_VERSION: <<parameters.version>>
