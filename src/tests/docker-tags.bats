@@ -16,7 +16,5 @@ log() {
     export PARAM_VERSION="jahia"
     # Capture the output of our "DockerTags" function
     result=$(DockerTags)
-    # [ "${result[0]}" == "Checking version: 1.0.0.0 against repository: jahia/jahia" ]
-    echo $result
     [ "$result" == "Checking version: 1.0.0.0*" ]
 }
