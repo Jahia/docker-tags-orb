@@ -24,7 +24,7 @@ parameters:
   dry-run:
     type: boolean
     default: true
-    description: "Dry Run: Do not push changes"
+    description: "Dry Run: Does not push changes if true"
 steps:
   - run:
       environment:
