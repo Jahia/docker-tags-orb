@@ -12,10 +12,10 @@ log() {
 @test '1: Run DockerTags' {
     # Mock environment variables or functions by exporting them (after the script has been sourced)
     export PARAM_VERSION="1.0.0.0"
-    export PARAM_VERSION="jahia"
-    export PARAM_VERSION="jahia"
+    export PARAM_ORG="jahia"
+    export PARAM_REPO="jahia"
     # Capture the output of our "DockerTags" function
     result=$(DockerTags)
     # [[ $result == "Checking version: 1.0.0.0*" ]]
-    [[ $result == "Hello" ]]
+    [[ $result == "Checking version: ${PARAM_VERSION} against repository: ${PARAM_ORG}/${PARAM_REPO}" ]]
 }
