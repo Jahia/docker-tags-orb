@@ -7,6 +7,7 @@ DockerTags() {
     echo Checking version: "${PARAM_VERSION}" against repository: "${PARAM_ORG}"/"${PARAM_REPO}"
     echo Will be using username: "${PARAM_USERNAME}"
     echo Will be using username: "${USERNAME}"
+    echo Will be using username: "${DOCKERHUB_LOGIN}"
     echo Will be using username: "${USERNAME}" > /tmp/abc
     cat /tmp/abc
     echo Is dry-run: "${PARAM_DRYRUN}"
