@@ -14,7 +14,7 @@ Setup() {
 
     AUTH_DOMAIN="auth.docker.io"
     AUTH_SERVICE="registry.docker.io"
-    AUTH_SCOPE="repository:${DOCKER_HUB_ORG}/${DOCKER_HUB_REPO}:pull"
+    AUTH_SCOPE="repository:${PARAM_ORG}/${PARAM_REPO}:pull"
     AUTH_OFFLINE_TOKEN="1"
     AUTH_CLIENT_ID="shell"
 
@@ -31,7 +31,7 @@ GetToken() {
 GetVersions() {
     echo "$(date +'%d %B %Y - %k:%M') - GetVersions: Fetching container versions from container registry: ${AUTH_SERVICE}"
     # TOKEN=$(curl -s -X GET -u ${USERNAME}:${PASSWORD} "https://${AUTH_DOMAIN}/token?service=${AUTH_SERVICE}&scope=${AUTH_SCOPE}&offline_token=${AUTH_OFFLINE_TOKEN}&client_id=${AUTH_CLIENT_ID}" | jq -r '.token')
-    VERSIONS=$(curl -s -H "Authorization: Bearer ${TOKEN}" https://${API_DOMAIN}/v2/"${DOCKER_HUB_ORG}"/"${DOCKER_HUB_REPO}"/tags/list | jq -r '.tags[]' | grep -E "^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$PARAM_VERSION_CLASSIFIER$")
+    VERSIONS=$(curl -s -H "Authorization: Bearer ${TOKEN}" https://${API_DOMAIN}/v2/"${PARAM_ORG}"/"${PARAM_REPO}"/tags/list | jq -r '.tags[]' | grep -E "^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$PARAM_VERSION_CLASSIFIER$")
     echo "$(date +'%d %B %Y - %k:%M') - GetVersions: Fetch complete"
 
 }
