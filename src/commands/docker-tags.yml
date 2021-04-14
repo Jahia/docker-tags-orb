@@ -12,4 +12,4 @@ steps:
       environment:
         PARAM_VERSION: <<parameters.version>>
       name: Generate missing Docker tags
-      command: <<include(scripts/generate-tags.sh)>>
+      command: <<include(scripts/docker-tags.sh)>>
