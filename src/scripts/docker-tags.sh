@@ -8,7 +8,7 @@ DockerTags() {
 
     # if [ "$NEW_VERSION_CLASSIFIER" != "" ]; then
     #     NEW_VERSION_CLASSIFIER='-'$NEW_VERSION_CLASSIFIER
-    # fi
+    # fix
 
     # AUTH_DOMAIN="auth.docker.io"
     # AUTH_SERVICE="registry.docker.io"

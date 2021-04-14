@@ -30,8 +30,8 @@ parameters:
 steps:
   - run:
       environment:
-        PARAM_VERSION: <<parameters.version>>
         PARAM_ORG: <<parameters.org>>
+        PARAM_VERSION: <<parameters.version>>
         PARAM_REPO: <<parameters.repo>>
         PARAM_USERNAME: <<parameters.useranme>>
         PARAM_PASSWORD: <<parameters.password>>
