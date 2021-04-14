@@ -1,7 +1,6 @@
 DockerTags() {
-    # echo Hello
     echo Checking version: "${PARAM_VERSION}" against repository: "${PARAM_ORG}"/"${PARAM_REPO}"
-    # echo Hello
+    echo Hello
 
     # NEW_VERSION_MAJOR=$(echo ${NEW_VERSION} | awk -F . '{print $1}' )
     # NEW_VERSION_MINOR=$(echo ${NEW_VERSION} | awk -F . '{print $2}' )
