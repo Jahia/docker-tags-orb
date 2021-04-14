@@ -1,5 +1,5 @@
 DockerTags() {
-    echo  Received version: "${PARAM_VERSION}"
+    echo  Checking version: "${PARAM_VERSION}" against image: "${PARAM_ORG}"/"${PARAM_REPO}"
 }
 
 # Will not run if sourced for bats-core tests.
