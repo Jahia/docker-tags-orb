@@ -1,16 +1,11 @@
 Setup() {    
-    echo "Entered Setup function"
+    echo "Setup: Evaluating the variables coming from context"
     USERNAME=$(eval echo "$PARAM_USERNAME")
+    PASSWORD=$(eval echo "$PARAM_PASSWORD")
 }
 
 DockerTags() {
     echo Checking version: "${PARAM_VERSION}" against repository: "${PARAM_ORG}"/"${PARAM_REPO}"
-    echo Will be using username: "${PARAM_USERNAME}"
-    echo Will be using username: "${USERNAME}"
-    echo Will be using username: "${DOCKERHUB_LOGIN}"
-    echo Will be using username: "${USERNAME}" > /tmp/abc
-    cat /tmp/abc
-    echo Is dry-run: "${PARAM_DRYRUN}"
     
     PARAM_VERSION_MAJOR=$(echo "${PARAM_VERSION}" | awk -F . '{print $1}' )
     PARAM_VERSION_MINOR=$(echo "${PARAM_VERSION}" | awk -F . '{print $2}' )
@@ -29,8 +24,8 @@ DockerTags() {
 
     API_DOMAIN="registry-1.docker.io"
 
-    # TOKEN=$(curl -s -X GET -u ${DOCKER_HUB_USER}:${DOCKER_HUB_PASSWORD} "https://${AUTH_DOMAIN}/token?service=${AUTH_SERVICE}&scope=${AUTH_SCOPE}&offline_token=${AUTH_OFFLINE_TOKEN}&client_id=${AUTH_CLIENT_ID}" | jq -r '.token')
-    TOKEN=$(curl -s -X GET -u "${DOCKER_HUB_USER}":"${DOCKER_HUB_PASSWORD}" "https://${AUTH_DOMAIN}/token?service=${AUTH_SERVICE}&scope=${AUTH_SCOPE}&offline_token=${AUTH_OFFLINE_TOKEN}&client_id=${AUTH_CLIENT_ID}" | jq -r '.token')
+    # TOKEN=$(curl -s -X GET -u ${USERNAME}:${PASSWORD} "https://${AUTH_DOMAIN}/token?service=${AUTH_SERVICE}&scope=${AUTH_SCOPE}&offline_token=${AUTH_OFFLINE_TOKEN}&client_id=${AUTH_CLIENT_ID}" | jq -r '.token')
+    TOKEN=$(curl -s -X GET -u "${USERNAME}":"${PASSWORD}" "https://${AUTH_DOMAIN}/token?service=${AUTH_SERVICE}&scope=${AUTH_SCOPE}&offline_token=${AUTH_OFFLINE_TOKEN}&client_id=${AUTH_CLIENT_ID}" | jq -r '.token')
     # VERSIONS=$(curl -s -H "Authorization: Bearer ${TOKEN}" https://${API_DOMAIN}/v2/${DOCKER_HUB_ORG}/${DOCKER_HUB_REPO}/tags/list | jq -r '.tags[]' | grep -E "^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$PARAM_VERSION_CLASSIFIER$")
     VERSIONS=$(curl -s -H "Authorization: Bearer ${TOKEN}" https://${API_DOMAIN}/v2/"${DOCKER_HUB_ORG}"/"${DOCKER_HUB_REPO}"/tags/list | jq -r '.tags[]' | grep -E "^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$PARAM_VERSION_CLASSIFIER$")
 
