@@ -31,7 +31,7 @@ steps:
   - run:
       name: Check parameter
       command: |
-        echo $<<parameters.useranme>>
+        echo $<<parameters.username>>
   - run:
       environment:
         PARAM_VERSION: <<parameters.version>>
@@ -39,5 +39,6 @@ steps:
         PARAM_REPO: <<parameters.repo>>
         PARAM_USERNAME: <<parameters.username>>
         PARAM_PASSWORD: <<parameters.password>>
+        PARAM_DRYRUN: <<parameters.dry-run>>
       name: Generate missing Docker tags
       command: <<include(scripts/docker-tags.sh)>>
