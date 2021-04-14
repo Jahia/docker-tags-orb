@@ -1,41 +1,101 @@
-# Orb Project Template
+# Docker images tagging
 
 [![CircleCI Build Status](https://circleci.com/gh/Jahia/docker-tags-orb.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/Jahia/docker-tags-orb) [![CircleCI Orb Version](https://badges.circleci.com/orbs/jahia/docker-tags-orb)](https://circleci.com/orbs/registry/orb/jahia/docker-tags-orb) [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/Jahia/docker-tags-orb/master/LICENSE) [![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
 
 
+A CircleCI orb to facilitate the tagging of Docker images and the creation of shorter versions of the tags acting as aliases to full versions of the image.
 
-A astarter template for orb projects. Build, test, and publish orbs automatically on CircleCI with [Orb-Tools](https://circleci.com/orbs/registry/orb/circleci/orb-tools).
+When provided with a version, the Orb will automatically check other versions already published to the registry (only Docker Hub for now) and determine all of the tags that needs to be generated.
 
-Additional READMEs are available in each directory.
+For example, if releasing version 8.2.0.1, the orb will automatically created the following alliases:
+* 8
+* 8.2
+* 8.2.0
+
+The objective is to allow CI/CD platforms to automatically use the "latest" of the selected flavor, for example latest 8, lasted 8.0, latest 8.0.2
+
+This orb also supports SNAPSHOT tagging. Snapshot and release tags are not mixed.
+
+Note: Due to Docker Layer caching, generating additonal tags does not increase resource usage.
+
+# Use Cases
+
+Assuming the following tags already exist in Docker hub.
+
+```
+7.3.4.1
+7.3.4.2
+7.3.5.0
+7.3.5.1
+7.3.6.0
+7.3.7.0
+8.0.0.0
+8.0.1.0
+8.0.2.0
+```
+
+## When submitting 8.0.2.0
+
+```
+All versions : 7.3.4.1 7.3.4.2 7.3.5.0 7.3.5.1 7.3.6.0 7.3.7.0 8.0.0.0 8.0.1.0 8.0.2.0
+latest is : 8.0.2.0 , require tag update
+8 is : 8.0.2.0 , require tag update
+8.0 is : 8.0.2.0 , require tag update
+8.0.2 is : 8.0.2.0 , require tag update
+```
 
 
+## When submitting 7.3.7.0
 
-## Resources
+```
+All versions : 7.3.4.1 7.3.4.2 7.3.5.0 7.3.5.1 7.3.6.0 7.3.7.0 8.0.0.0 8.0.1.0 8.0.2.0
+latest is : 8.0.2.0 , unchanged
+7 is : 7.3.7.0 , require tag update
+7.3 is : 7.3.7.0 , require tag update
+7.3.7 is : 7.3.7.0 , require tag update
+```
 
-[CircleCI Orb Registry Page](https://circleci.com/orbs/registry/orb/jahia/docker-tags-orb) - The official registry page of this orb for all versions, executors, commands, and jobs described.
-[CircleCI Orb Docs](https://circleci.com/docs/2.0/orb-intro/#section=configuration) - Docs for using and creating CircleCI Orbs.
+## When submitting 7.3.5.1
 
-### How to Contribute
+```
+All versions : 7.3.4.1 7.3.4.2 7.3.5.0 7.3.5.1 7.3.6.0 7.3.7.0 8.0.0.0 8.0.1.0 8.0.2.0
+latest is : 8.0.2.0 , unchanged
+7 is : 7.3.7.0 , unchanged
+7.3 is : 7.3.7.0 , unchanged
+7.3.5 is : 7.3.5.1 , require tag update
+```
 
-We welcome [issues](https://github.com/Jahia/docker-tags-orb/issues) to and [pull requests](https://github.com/Jahia/docker-tags-orb/pulls) against this repository!
+## When submitting 7.3.5.0
 
-### How to Publish
-* Create and push a branch with your new features.
-* When ready to publish a new production version, create a Pull Request from _feature branch_ to `master`.
-* The title of the pull request must contain a special semver tag: `[semver:<segement>]` where `<segment>` is replaced by one of the following values.
+```
+7.3.5.0
+All versions : 7.3.4.1 7.3.4.2 7.3.5.0 7.3.5.1 7.3.6.0 7.3.7.0 8.0.0.0 8.0.1.0 8.0.2.0
+latest is : 8.0.2.0 , unchanged
+7 is : 7.3.7.0 , unchanged
+7.3 is : 7.3.7.0 , unchanged
+7.3.5 is : 7.3.5.1 , unchanged
+```
 
-| Increment | Description|
-| ----------| -----------|
-| major     | Issue a 1.0.0 incremented release|
-| minor     | Issue a x.1.0 incremented release|
-| patch     | Issue a x.x.1 incremented release|
-| skip      | Do not issue a release|
+## When submitting 8.0.1.1
 
-Example: `[semver:major]`
+Submitting a version that does not exist yet in the docker registry
 
-* Squash and merge. Ensure the semver tag is preserved and entered as a part of the commit message.
-* On merge, after manual approval, the orb will automatically be published to the Orb Registry.
+```
+8.0.1.1 not found yet, adding it
+All versions : 7.3.4.1 7.3.4.2 7.3.5.0 7.3.5.1 7.3.6.0 7.3.7.0 8.0.0.0 8.0.1.0 8.0.1.1 8.0.2.0
+latest is : 8.0.2.0 , unchanged
+8 is : 8.0.2.0 , unchanged
+8.0 is : 8.0.2.0 , unchanged
+8.0.1 is : 8.0.1.1 , require tag update 
+```
 
+## When submitting 8.0.3.0-SNAPSHOT
 
-For further questions/comments about this or other orbs, visit the Orb Category of [CircleCI Discuss](https://discuss.circleci.com/c/orbs).
-
+```
+8.0.3.0-SNAPSHOT not found yet, adding it
+All versions : 8.0.3.0-SNAPSHOT
+latest-SNAPSHOT is : 8.0.3.0-SNAPSHOT , require tag update
+8-SNAPSHOT is : 8.0.3.0-SNAPSHOT , require tag update
+8.0-SNAPSHOT is : 8.0.3.0-SNAPSHOT , require tag update
+8.0.3-SNAPSHOT is : 8.0.3.0-SNAPSHOT , require tag upda
+```
