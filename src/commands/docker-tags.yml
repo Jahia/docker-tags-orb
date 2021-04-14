@@ -18,11 +18,11 @@ parameters:
   useranme:
     type: string
     default: ""
-    description: "Docker registry (i.e. Docker Hub) username. Needs read/write access"
+    description: "Docker registry (i.e. Docker Hub) username. Requires read/write access"
   password:
     type: string
     default: ""
-    description: "Docker registry (i.e. Docker Hub) password. Needs read/write access"
+    description: "Docker registry (i.e. Docker Hub) password. Requires read/write access"
   dry-run:
     type: boolean
     default: true
