@@ -1,0 +1,15 @@
+description: >
+  This command generates missing Docker tags for a given version
+# What will this command do?
+# Descriptions should be short, simple, and clear.
+parameters:
+  version:
+    type: string
+    default: "1.0.0.0"
+    description: "Version to run the check towards"
+steps:
+  - run:
+      environment:
+        PARAM_VERSION: <<parameters.version>>
+      name: Generate missing Docker tags
+      command: <<include(scripts/generate-tags.sh)>>
