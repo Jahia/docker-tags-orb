@@ -17,5 +17,4 @@ log() {
     # Capture the output of our "DockerTags" function
     result=$(DockerTags)
     [[ ${result%%$'\n'*} == "Checking version: ${PARAM_VERSION} against repository: ${PARAM_ORG}/${PARAM_REPO}" ]]
-    #[[ ${result} == "Hello" ]]
 }
