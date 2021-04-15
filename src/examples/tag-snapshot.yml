@@ -8,5 +8,5 @@ usage:
     use-my-orb:
       jobs:
         - docker-tags-orb/docker-tags:
-            version: "8.0.2.0-SNAPSHPT"
+            version: "8.0.2.0-SNAPSHOT"
             repo: "jahia-dev-ee"
