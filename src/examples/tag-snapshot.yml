@@ -1,0 +1,12 @@
+description: >
+  Generate tags associated with snapshot 8.0.2.0-SNAPSHOT
+usage:
+  version: 2.1
+  orbs:
+    docker-tags-orb: jahia/docker-tags-orb@1.2.3
+  workflows:
+    use-my-orb:
+      jobs:
+        - docker-tags-orb/docker-tags:
+            version: "8.0.2.0-SNAPSHPT"
+            repo: "jahia-dev-ee"
