@@ -43,7 +43,7 @@ GetVersions() {
 }
 
 DockerTags() {
-    echo Checking version: "${PARAM_VERSION}" against repository: "${PARAM_ORG}"/"${PARAM_REPO}"
+    echo "$(date +'%d %B %Y - %k:%M') - Received tagging request for:  ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION}"
 
     REGISTRY_VERSIONS=$(echo "$VERSIONS" | awk -vORS=, '{ print $1 }' | sed 's/, $/\n/')   
     echo "$(date +'%d %B %Y - %k:%M') - The following tags exists in ${PARAM_ORG}/${PARAM_REPO}: ${REGISTRY_VERSIONS}"
@@ -81,9 +81,9 @@ DockerTags() {
         echo "$(date +'%d %B %Y - %k:%M') - Tag: latest ${PARAM_VERSION_CLASSIFIER} is an alias of ${LATEST}, tag update is required"
         if [[ $PARAM_DRYRUN -eq 0 ]]; then
             echo "$(date +'%d %B %Y - %k:%M') - RUNNING): docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:latest"
-            docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:latest
+            docker tag "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION}" "${PARAM_ORG}"/"${PARAM_REPO}":latest
             echo "$(date +'%d %B %Y - %k:%M') - RUNNING: docker push ${PARAM_ORG}/${PARAM_REPO}:latest"        
-            docker push ${PARAM_ORG}/${PARAM_REPO}:latest
+            docker push "${PARAM_ORG}"/"${PARAM_REPO}":latest
         else
             echo "$(date +'%d %B %Y - %k:%M') - DRY-RUN (command not executed): docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:latest"
             echo "$(date +'%d %B %Y - %k:%M') - DRY-RUN (command not executed): docker push ${PARAM_ORG}/${PARAM_REPO}:latest"
@@ -96,9 +96,9 @@ DockerTags() {
         echo "$(date +'%d %B %Y - %k:%M') - Tag: ${PARAM_VERSION_MAJOR} ${PARAM_VERSION_CLASSIFIER} is an alias of ${MATCHING1}, tag update is required"
         if [[ $PARAM_DRYRUN -eq 0 ]]; then
             echo "$(date +'%d %B %Y - %k:%M') - RUNNING): docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}"
-            docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}
+            docker tag "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION}" "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION_MAJOR}"
             echo "$(date +'%d %B %Y - %k:%M') - RUNNING: docker push ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}"        
-            docker push ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}
+            docker push "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION_MAJOR}"
         else
             echo "$(date +'%d %B %Y - %k:%M') - DRY-RUN (command not executed): docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}"
             echo "$(date +'%d %B %Y - %k:%M') - DRY-RUN (command not executed): docker push ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}"
@@ -111,9 +111,9 @@ DockerTags() {
         echo "$(date +'%d %B %Y - %k:%M') - Tag: ${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR} ${PARAM_VERSION_CLASSIFIER} is an alias of ${MATCHING2}, tag update is required"
         if [[ $PARAM_DRYRUN -eq 0 ]]; then
             echo "$(date +'%d %B %Y - %k:%M') - RUNNING): docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}"
-            docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}
+            docker tag "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION}" "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION_MAJOR}"."${PARAM_VERSION_MINOR}"
             echo "$(date +'%d %B %Y - %k:%M') - RUNNING: docker push ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}"        
-            docker push ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}
+            docker push "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION_MAJOR}"."${PARAM_VERSION_MINOR}"
         else
             echo "$(date +'%d %B %Y - %k:%M') - DRY-RUN (command not executed): docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}"
             echo "$(date +'%d %B %Y - %k:%M') - DRY-RUN (command not executed): docker push ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}"
@@ -126,9 +126,9 @@ DockerTags() {
         echo "$(date +'%d %B %Y - %k:%M') - Tag: ${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}.${PARAM_VERSION_HF} ${PARAM_VERSION_CLASSIFIER} is an alias of ${MATCHING3}, tag update is required"
         if [[ $PARAM_DRYRUN -eq 0 ]]; then
             echo "$(date +'%d %B %Y - %k:%M') - RUNNING): docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}.${PARAM_VERSION_HF}"
-            docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}.${PARAM_VERSION_HF}
+            docker tag "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION}" "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION_MAJOR}"."${PARAM_VERSION_MINOR}"."${PARAM_VERSION_HF}"
             echo "$(date +'%d %B %Y - %k:%M') - RUNNING: docker push ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}.${PARAM_VERSION_HF}"        
-            docker push ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}.${PARAM_VERSION_HF}
+            docker push "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION_MAJOR}"."${PARAM_VERSION_MINOR}"."${PARAM_VERSION_HF}"
         else
             echo "$(date +'%d %B %Y - %k:%M') - DRY-RUN (command not executed): docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}.${PARAM_VERSION_HF}"
             echo "$(date +'%d %B %Y - %k:%M') - DRY-RUN (command not executed): docker push ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}.${PARAM_VERSION_HF}"
@@ -143,8 +143,7 @@ Main() {
     DockerLogin
     GetToken
     GetVersions
-    DockerTags
-    
+    DockerTags    
 }
 
 # Will not run if sourced for bats-core tests.
