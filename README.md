@@ -107,3 +107,8 @@ Complex orbs can be found here:
  * https://github.com/CircleCI-Public/slack-orb
  * https://github.com/CircleCI-Public/orb-tools-orb
 
+## Release
+
+Release of the orb is performed by merging content to the `main` branch with a semvar tag in the commit. 
+
+Please see this page for more details: https://circleci.com/docs/2.0/creating-orbs/#issue-a-new-release
