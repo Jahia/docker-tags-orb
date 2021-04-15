@@ -46,9 +46,6 @@ jobs:
       - docker-tags-orb/docker-tags:
           version: "8.0.3.0-SNAPSHOT"
           repo: "jahia-ee-dev"
-        # password: $DOCKERHUB_PASSWORD
-        # username: <<parameters.DOCKERHUB_LOGIN>>
-        # password: <<parameters.DOCKERHUB_LOGIN>>
 
 workflows:
   # Prior to producing a development orb (which requires credentials) basic validation, linting, and even unit testing can be performed.
