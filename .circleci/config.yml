@@ -38,14 +38,14 @@ jobs:
       # - docker-tags-orb/docker-tags
       - docker-tags-orb/docker-tags
       - docker-tags-orb/docker-tags:
-        version: "7.3.5.0"
-        repo: "jahia"
+          version: "7.3.5.0"
+          repo: "jahia"
       - docker-tags-orb/docker-tags:
-        version: "8.0.0.0"
-        repo: "jahia-dev"
+          version: "8.0.0.0"
+          repo: "jahia-dev"
       - docker-tags-orb/docker-tags:
-        version: "8.0.3.0-SNAPSHOT"
-        repo: "jahia-ee-dev"        
+          version: "8.0.3.0-SNAPSHOT"
+          repo: "jahia-ee-dev"        
         # password: $DOCKERHUB_PASSWORD
         # username: <<parameters.DOCKERHUB_LOGIN>>
         # password: <<parameters.DOCKERHUB_LOGIN>>
