@@ -1,3 +1,7 @@
+<a href="https://www.jahia.com/">
+    <img src="https://www.jahia.com/modules/jahiacom-templates/images/jahia-3x.png" alt="Jahia logo" title="Jahia" align="right" height="60" />
+</a>
+
 # Docker images tagging
 
 [![CircleCI Build Status](https://circleci.com/gh/Jahia/docker-tags-orb.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/Jahia/docker-tags-orb) [![CircleCI Orb Version](https://badges.circleci.com/orbs/jahia/docker-tags-orb)](https://circleci.com/orbs/registry/orb/jahia/docker-tags-orb) [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/Jahia/docker-tags-orb/master/LICENSE) [![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
@@ -112,3 +116,7 @@ Complex orbs can be found here:
 Release of the orb is performed by merging content to the `main` branch with a semvar tag in the commit. 
 
 Please see this page for more details: https://circleci.com/docs/2.0/creating-orbs/#issue-a-new-release
+
+## Open-Source
+
+This is an Open-Source module, you can find more details about Open-Source @ Jahia [in this repository](https://github.com/Jahia/open-source).
