@@ -61,7 +61,7 @@ DockerTags() {
     MATCHING2=$(echo "$VERSIONS" | grep -E "^${PARAM_VERSION_MAJOR}\.${PARAM_VERSION_MINOR}\." | tail -1)
     MATCHING3=$(echo "$VERSIONS" | grep -E "^${PARAM_VERSION_MAJOR}\.${PARAM_VERSION_MINOR}\.${PARAM_VERSION_HF}\." | tail -1)
 
-    if [[ $PARAM_DRYRUN -eq 0 ]]; then
+    if [[ "$PARAM_DRYRUN" -eq "0" ]]; then
         echo "Not a try run"
     else
         echo "This is a dry run"
