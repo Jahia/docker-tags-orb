@@ -43,7 +43,7 @@ GetVersions() {
 }
 
 DockerTags() {
-    echo "$(date +'%d %B %Y - %k:%M') - Received tagging request for:  ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION}"
+    echo "$(date +'%d %B %Y - %k:%M') - Received tagging request for: ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION}"
 
     REGISTRY_VERSIONS=$(echo "$VERSIONS" | awk -vORS=, '{ print $1 }' | sed 's/,$/\n/')   
     echo "$(date +'%d %B %Y - %k:%M') - The following tags exists in ${PARAM_ORG}/${PARAM_REPO}: ${REGISTRY_VERSIONS}"
@@ -68,7 +68,7 @@ DockerTags() {
     MATCHING3=$(echo "$VERSIONS" | grep -E "^${PARAM_VERSION_MAJOR}\.${PARAM_VERSION_MINOR}\.${PARAM_VERSION_HF}\." | tail -1)
 
     if [ "$LATEST" == "$PARAM_VERSION" ]; then
-        echo "$(date +'%d %B %Y - %k:%M') - Tag: latest${PARAM_VERSION_CLASSIFIER} is an alias of ${LATEST}, tag update is required"
+        echo "$(date +'%d %B %Y - %k:%M') - Tag: latest${PARAM_VERSION_CLASSIFIER} should be an alias of ${LATEST}, tag update is required"
         if [[ $PARAM_DRYRUN -eq 0 ]]; then
             echo "$(date +'%d %B %Y - %k:%M') - RUNNING): docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:latest${PARAM_VERSION_CLASSIFIER}"
             docker tag "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION}" "${PARAM_ORG}"/"${PARAM_REPO}":latest"${PARAM_VERSION_CLASSIFIER}"
@@ -83,7 +83,7 @@ DockerTags() {
     fi
 
     if [ "$MATCHING1" == "$PARAM_VERSION" ]; then
-        echo "$(date +'%d %B %Y - %k:%M') - Tag: ${PARAM_VERSION_MAJOR}${PARAM_VERSION_CLASSIFIER} is an alias of ${MATCHING1}, tag update is required"
+        echo "$(date +'%d %B %Y - %k:%M') - Tag: ${PARAM_VERSION_MAJOR}${PARAM_VERSION_CLASSIFIER} should be an alias of ${MATCHING1}, tag update is required"
         if [[ $PARAM_DRYRUN -eq 0 ]]; then
             echo "$(date +'%d %B %Y - %k:%M') - RUNNING): docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}${PARAM_VERSION_CLASSIFIER}"
             docker tag "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION}" "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION_MAJOR}""${PARAM_VERSION_CLASSIFIER}"
@@ -98,7 +98,7 @@ DockerTags() {
     fi
 
     if [ "$MATCHING2" == "$PARAM_VERSION" ]; then
-        echo "$(date +'%d %B %Y - %k:%M') - Tag: ${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}${PARAM_VERSION_CLASSIFIER} is an alias of ${MATCHING2}, tag update is required"
+        echo "$(date +'%d %B %Y - %k:%M') - Tag: ${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}${PARAM_VERSION_CLASSIFIER} should be  an alias of ${MATCHING2}, tag update is required"
         if [[ $PARAM_DRYRUN -eq 0 ]]; then
             echo "$(date +'%d %B %Y - %k:%M') - RUNNING): docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}${PARAM_VERSION_CLASSIFIER}"
             docker tag "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION}" "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION_MAJOR}"."${PARAM_VERSION_MINOR}""${PARAM_VERSION_CLASSIFIER}"
@@ -113,7 +113,7 @@ DockerTags() {
     fi
 
     if [ "$MATCHING3" == "$PARAM_VERSION" ]; then
-        echo "$(date +'%d %B %Y - %k:%M') - Tag: ${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}.${PARAM_VERSION_HF}${PARAM_VERSION_CLASSIFIER} is an alias of ${MATCHING3}, tag update is required"
+        echo "$(date +'%d %B %Y - %k:%M') - Tag: ${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}.${PARAM_VERSION_HF}${PARAM_VERSION_CLASSIFIER} should be  an alias of ${MATCHING3}, tag update is required"
         if [[ $PARAM_DRYRUN -eq 0 ]]; then
             echo "$(date +'%d %B %Y - %k:%M') - RUNNING): docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}.${PARAM_VERSION_HF}${PARAM_VERSION_CLASSIFIER}"
             docker tag "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION}" "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION_MAJOR}"."${PARAM_VERSION_MINOR}"."${PARAM_VERSION_HF}""${PARAM_VERSION_CLASSIFIER}"

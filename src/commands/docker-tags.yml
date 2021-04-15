@@ -13,7 +13,7 @@ parameters:
     description: "Docker registry (i.e. Docker Hub) organization"
   repo:
     type: string
-    default: "jahia"
+    default: "jahia-dev-ee"
     description: "Docker registry (i.e. Docker Hub) repository"
   username:
     type: env_var_name
