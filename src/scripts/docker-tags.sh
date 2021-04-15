@@ -56,8 +56,6 @@ DockerTags() {
     VERSIONS_ONELINE=$(echo "$VERSIONS" | awk -vORS=, '{ print $1 }' | sed 's/, $/\n/')
     echo "$(date +'%d %B %Y - %k:%M') - The following tags exists: ${VERSIONS_ONELINE}"
 
-    # echo All versions : "$VERSIONS"
-
     LATEST=$(echo "$VERSIONS" | tail -1)
     MATCHING1=$(echo "$VERSIONS" | grep -E "^${PARAM_VERSION_MAJOR}\." | tail -1)
     MATCHING2=$(echo "$VERSIONS" | grep -E "^${PARAM_VERSION_MAJOR}\.${PARAM_VERSION_MINOR}\." | tail -1)
@@ -68,6 +66,11 @@ DockerTags() {
         echo latest "${PARAM_VERSION_CLASSIFIER}" is : "$LATEST" , require tag update
     else
         echo latest "${PARAM_VERSION_CLASSIFIER}" is : "$LATEST" , unchanged
+        if [[ PARAM_DRYRUN -eq 0 ]]; then
+            echo "Not a try run"
+        else
+            echo "This is a dry run"
+        if
     fi
 
     if [ "$MATCHING1" == "$PARAM_VERSION" ]; then
