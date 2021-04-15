@@ -1,0 +1,12 @@
+description: >
+  Perform a dry-run of generating tags associated with release 7.3.5.0
+usage:
+  version: 2.1
+  orbs:
+    docker-tags-orb: jahia/docker-tags-orb@1.2.3
+  workflows:
+    use-my-orb:
+      jobs:
+        - docker-tags-orb/docker-tags:
+            version: "7.3.5.0"
+            repo: "jahia"
