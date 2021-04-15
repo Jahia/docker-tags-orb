@@ -23,8 +23,7 @@ Setup() {
 
 DockerLogin() {
     if [[ $PARAM_DRYRUN -eq 0 ]]; then
-        echo "abcd"
-        # echo "$PASSWORD" | docker login -u "$USERNAME" --password-stdin
+        echo "$PASSWORD" | docker login -u "$USERNAME" --password-stdin
     else
         echo "$(date +'%d %B %Y - %k:%M') - This is a dry-run, skipping docker login"
     fi

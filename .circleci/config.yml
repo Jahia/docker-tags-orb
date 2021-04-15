@@ -32,11 +32,8 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
       - docker-tags-orb/docker-tags:
-          version: "7.3.5.0"
-          repo: "jahia"
-      - docker-tags-orb/docker-tags:
-          version: "8.0.0.0"
-          repo: "jahia-dev"
+          version: "8.0.3.0"
+          repo: "jahia-ee"
       - docker-tags-orb/docker-tags:
           version: "8.0.3.0-SNAPSHOT"
           repo: "jahia-ee-dev"
