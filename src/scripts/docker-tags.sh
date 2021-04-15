@@ -45,7 +45,7 @@ GetVersions() {
 DockerTags() {
     echo "$(date +'%d %B %Y - %k:%M') - Received tagging request for:  ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION}"
 
-    REGISTRY_VERSIONS=$(echo "$VERSIONS" | awk -vORS=, '{ print $1 }' | sed 's/, $/\n/')   
+    REGISTRY_VERSIONS=$(echo "$VERSIONS" | awk -vORS=, '{ print $1 }' | sed 's/,$/\n/')   
     echo "$(date +'%d %B %Y - %k:%M') - The following tags exists in ${PARAM_ORG}/${PARAM_REPO}: ${REGISTRY_VERSIONS}"
 
     if ! (echo "$VERSIONS" | grep "$PARAM_VERSION"); then   
@@ -62,79 +62,69 @@ DockerTags() {
 
     VERSIONS=$(echo "$VERSIONS" | sort --version-sort)
 
-    VERSIONS_ONELINE=$(echo "$VERSIONS" | awk -vORS=, '{ print $1 }' | sed 's/, $/\n/')
-    echo "$(date +'%d %B %Y - %k:%M') - The following tags exists: ${VERSIONS_ONELINE}"
-
     LATEST=$(echo "$VERSIONS" | tail -1)
     MATCHING1=$(echo "$VERSIONS" | grep -E "^${PARAM_VERSION_MAJOR}\." | tail -1)
     MATCHING2=$(echo "$VERSIONS" | grep -E "^${PARAM_VERSION_MAJOR}\.${PARAM_VERSION_MINOR}\." | tail -1)
     MATCHING3=$(echo "$VERSIONS" | grep -E "^${PARAM_VERSION_MAJOR}\.${PARAM_VERSION_MINOR}\.${PARAM_VERSION_HF}\." | tail -1)
 
-    if [[ $PARAM_DRYRUN -eq 0 ]]; then
-        echo "Not a try run"
-    else
-        echo "This is a dry run"
-    fi
-
-
     if [ "$LATEST" == "$PARAM_VERSION" ]; then
-        echo "$(date +'%d %B %Y - %k:%M') - Tag: latest ${PARAM_VERSION_CLASSIFIER} is an alias of ${LATEST}, tag update is required"
+        echo "$(date +'%d %B %Y - %k:%M') - Tag: latest${PARAM_VERSION_CLASSIFIER} is an alias of ${LATEST}, tag update is required"
         if [[ $PARAM_DRYRUN -eq 0 ]]; then
-            echo "$(date +'%d %B %Y - %k:%M') - RUNNING): docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:latest"
-            docker tag "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION}" "${PARAM_ORG}"/"${PARAM_REPO}":latest
-            echo "$(date +'%d %B %Y - %k:%M') - RUNNING: docker push ${PARAM_ORG}/${PARAM_REPO}:latest"        
-            docker push "${PARAM_ORG}"/"${PARAM_REPO}":latest
+            echo "$(date +'%d %B %Y - %k:%M') - RUNNING): docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:latest${PARAM_VERSION_CLASSIFIER}"
+            docker tag "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION}" "${PARAM_ORG}"/"${PARAM_REPO}":latest"${PARAM_VERSION_CLASSIFIER}"
+            echo "$(date +'%d %B %Y - %k:%M') - RUNNING: docker push ${PARAM_ORG}/${PARAM_REPO}:latest${PARAM_VERSION_CLASSIFIER}"        
+            docker push "${PARAM_ORG}"/"${PARAM_REPO}":latest"${PARAM_VERSION_CLASSIFIER}"
         else
-            echo "$(date +'%d %B %Y - %k:%M') - DRY-RUN (command not executed): docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:latest"
-            echo "$(date +'%d %B %Y - %k:%M') - DRY-RUN (command not executed): docker push ${PARAM_ORG}/${PARAM_REPO}:latest"
+            echo "$(date +'%d %B %Y - %k:%M') - DRY-RUN (command not executed): docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:latest${PARAM_VERSION_CLASSIFIER}"
+            echo "$(date +'%d %B %Y - %k:%M') - DRY-RUN (command not executed): docker push ${PARAM_ORG}/${PARAM_REPO}:latest${PARAM_VERSION_CLASSIFIER}"
         fi
     else
-        echo "$(date +'%d %B %Y - %k:%M') - Tag: latest is an alias of ${PARAM_VERSION_CLASSIFIER}, unchanged"
+        echo "$(date +'%d %B %Y - %k:%M') - Tag: latest is an alias of ${LATEST}, unchanged"
     fi
 
     if [ "$MATCHING1" == "$PARAM_VERSION" ]; then
-        echo "$(date +'%d %B %Y - %k:%M') - Tag: ${PARAM_VERSION_MAJOR} ${PARAM_VERSION_CLASSIFIER} is an alias of ${MATCHING1}, tag update is required"
+        echo "$(date +'%d %B %Y - %k:%M') - Tag: ${PARAM_VERSION_MAJOR}${PARAM_VERSION_CLASSIFIER} is an alias of ${MATCHING1}, tag update is required"
         if [[ $PARAM_DRYRUN -eq 0 ]]; then
-            echo "$(date +'%d %B %Y - %k:%M') - RUNNING): docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}"
-            docker tag "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION}" "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION_MAJOR}"
-            echo "$(date +'%d %B %Y - %k:%M') - RUNNING: docker push ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}"        
-            docker push "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION_MAJOR}"
+            echo "$(date +'%d %B %Y - %k:%M') - RUNNING): docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}${PARAM_VERSION_CLASSIFIER}"
+            docker tag "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION}" "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION_MAJOR}""${PARAM_VERSION_CLASSIFIER}"
+            echo "$(date +'%d %B %Y - %k:%M') - RUNNING: docker push ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}${PARAM_VERSION_CLASSIFIER}"        
+            docker push "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION_MAJOR}""${PARAM_VERSION_CLASSIFIER}"
         else
-            echo "$(date +'%d %B %Y - %k:%M') - DRY-RUN (command not executed): docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}"
-            echo "$(date +'%d %B %Y - %k:%M') - DRY-RUN (command not executed): docker push ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}"
+            echo "$(date +'%d %B %Y - %k:%M') - DRY-RUN (command not executed): docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}${PARAM_VERSION_CLASSIFIER}"
+            echo "$(date +'%d %B %Y - %k:%M') - DRY-RUN (command not executed): docker push ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}${PARAM_VERSION_CLASSIFIER}"
         fi      
     else
-        echo "$(date +'%d %B %Y - %k:%M') - Tag: ${PARAM_VERSION_MAJOR} ${PARAM_VERSION_CLASSIFIER} is an alias of ${MATCHING1}, unchanged"
+        echo "$(date +'%d %B %Y - %k:%M') - Tag: ${PARAM_VERSION_MAJOR}${PARAM_VERSION_CLASSIFIER} is an alias of ${MATCHING1}, unchanged"
     fi
 
     if [ "$MATCHING2" == "$PARAM_VERSION" ]; then
-        echo "$(date +'%d %B %Y - %k:%M') - Tag: ${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR} ${PARAM_VERSION_CLASSIFIER} is an alias of ${MATCHING2}, tag update is required"
+        echo "$(date +'%d %B %Y - %k:%M') - Tag: ${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}${PARAM_VERSION_CLASSIFIER} is an alias of ${MATCHING2}, tag update is required"
         if [[ $PARAM_DRYRUN -eq 0 ]]; then
-            echo "$(date +'%d %B %Y - %k:%M') - RUNNING): docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}"
-            docker tag "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION}" "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION_MAJOR}"."${PARAM_VERSION_MINOR}"
-            echo "$(date +'%d %B %Y - %k:%M') - RUNNING: docker push ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}"        
-            docker push "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION_MAJOR}"."${PARAM_VERSION_MINOR}"
+            echo "$(date +'%d %B %Y - %k:%M') - RUNNING): docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}${PARAM_VERSION_CLASSIFIER}"
+            docker tag "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION}" "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION_MAJOR}"."${PARAM_VERSION_MINOR}""${PARAM_VERSION_CLASSIFIER}"
+            echo "$(date +'%d %B %Y - %k:%M') - RUNNING: docker push ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}${PARAM_VERSION_CLASSIFIER}"        
+            docker push "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION_MAJOR}"."${PARAM_VERSION_MINOR}""${PARAM_VERSION_CLASSIFIER}"
         else
-            echo "$(date +'%d %B %Y - %k:%M') - DRY-RUN (command not executed): docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}"
-            echo "$(date +'%d %B %Y - %k:%M') - DRY-RUN (command not executed): docker push ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}"
+            echo "$(date +'%d %B %Y - %k:%M') - DRY-RUN (command not executed): docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}${PARAM_VERSION_CLASSIFIER}"
+            echo "$(date +'%d %B %Y - %k:%M') - DRY-RUN (command not executed): docker push ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}${PARAM_VERSION_CLASSIFIER}"
         fi          
     else
-        echo "$(date +'%d %B %Y - %k:%M') - Tag: ${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR} ${PARAM_VERSION_CLASSIFIER} is an alias of ${MATCHING2}, unchanged"
+        echo "$(date +'%d %B %Y - %k:%M') - Tag: ${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}${PARAM_VERSION_CLASSIFIER} is an alias of ${MATCHING2}, unchanged"
     fi
 
     if [ "$MATCHING3" == "$PARAM_VERSION" ]; then
-        echo "$(date +'%d %B %Y - %k:%M') - Tag: ${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}.${PARAM_VERSION_HF} ${PARAM_VERSION_CLASSIFIER} is an alias of ${MATCHING3}, tag update is required"
+        echo "$(date +'%d %B %Y - %k:%M') - Tag: ${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}.${PARAM_VERSION_HF}${PARAM_VERSION_CLASSIFIER} is an alias of ${MATCHING3}, tag update is required"
         if [[ $PARAM_DRYRUN -eq 0 ]]; then
-            echo "$(date +'%d %B %Y - %k:%M') - RUNNING): docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}.${PARAM_VERSION_HF}"
-            docker tag "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION}" "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION_MAJOR}"."${PARAM_VERSION_MINOR}"."${PARAM_VERSION_HF}"
-            echo "$(date +'%d %B %Y - %k:%M') - RUNNING: docker push ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}.${PARAM_VERSION_HF}"        
-            docker push "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION_MAJOR}"."${PARAM_VERSION_MINOR}"."${PARAM_VERSION_HF}"
+            echo "$(date +'%d %B %Y - %k:%M') - RUNNING): docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}.${PARAM_VERSION_HF}${PARAM_VERSION_CLASSIFIER}"
+            docker tag "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION}" "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION_MAJOR}"."${PARAM_VERSION_MINOR}"."${PARAM_VERSION_HF}""${PARAM_VERSION_CLASSIFIER}"
+            echo "$(date +'%d %B %Y - %k:%M') - RUNNING: docker push ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}.${PARAM_VERSION_HF}${PARAM_VERSION_CLASSIFIER}"        
+            docker push "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION_MAJOR}"."${PARAM_VERSION_MINOR}"."${PARAM_VERSION_HF}""${PARAM_VERSION_CLASSIFIER}"
         else
-            echo "$(date +'%d %B %Y - %k:%M') - DRY-RUN (command not executed): docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}.${PARAM_VERSION_HF}"
-            echo "$(date +'%d %B %Y - %k:%M') - DRY-RUN (command not executed): docker push ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}.${PARAM_VERSION_HF}"
+            echo "$(date +'%d %B %Y - %k:%M') - DRY-RUN (command not executed): docker tag ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION} ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}.${PARAM_VERSION_HF}${PARAM_VERSION_CLASSIFIER}"
+            echo "$(date +'%d %B %Y - %k:%M') - DRY-RUN (command not executed): docker push ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}.${PARAM_VERSION_HF}${PARAM_VERSION_CLASSIFIER}"
         fi           
     else
-        echo "$(date +'%d %B %Y - %k:%M') - Tag: ${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}.${PARAM_VERSION_HF} ${PARAM_VERSION_CLASSIFIER} is an alias of ${MATCHING3}, unchanged"
+        echo "$(date +'%d %B %Y - %k:%M') - Tag: ${PARAM_VERSION_MAJOR}.${PARAM_VERSION_MINOR}.${PARAM_VERSION_HF}${PARAM_VERSION_CLASSIFIER} is an alias of ${MATCHING3}, unchanged"
     fi    
 }
 
