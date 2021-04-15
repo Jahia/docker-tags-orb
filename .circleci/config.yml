@@ -29,6 +29,8 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true      
       - docker-tags-orb/docker-tags:
           version: "7.3.5.0"
           repo: "jahia"
