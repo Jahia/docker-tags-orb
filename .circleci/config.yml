@@ -38,6 +38,7 @@ jobs:
       - docker-tags-orb/docker-tags:
           version: "8.0.3.0-SNAPSHOT"
           repo: "jahia-ee-dev"
+          dry-run: false
 
 workflows:
   # Prior to producing a development orb (which requires credentials) basic validation, linting, and even unit testing can be performed.
