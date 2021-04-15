@@ -66,6 +66,11 @@ DockerTags() {
     MATCHING2=$(echo "$VERSIONS" | grep -E "^${PARAM_VERSION_MAJOR}\.${PARAM_VERSION_MINOR}\." | tail -1)
     MATCHING3=$(echo "$VERSIONS" | grep -E "^${PARAM_VERSION_MAJOR}\.${PARAM_VERSION_MINOR}\.${PARAM_VERSION_HF}\." | tail -1)
 
+    if [[ $PARAM_DRYRUN -eq 0 ]]; then
+        echo "$(date +'%d %B %Y - %k:%M') - RUNNING): Pulling docker image prior to tagging"
+        docker pull "${PARAM_ORG}"/"${PARAM_REPO}":"${PARAM_VERSION}"
+    fi
+
     if [ "$LATEST" == "$PARAM_VERSION" ]; then
         echo "$(date +'%d %B %Y - %k:%M') - Tag: latest${PARAM_VERSION_CLASSIFIER} should be an alias of ${LATEST}, tag update is required"
         if [[ $PARAM_DRYRUN -eq 0 ]]; then
