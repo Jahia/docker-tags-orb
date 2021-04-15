@@ -62,7 +62,6 @@ DockerTags() {
     MATCHING3=$(echo "$VERSIONS" | grep -E "^${PARAM_VERSION_MAJOR}\.${PARAM_VERSION_MINOR}\.${PARAM_VERSION_HF}\." | tail -1)
 
     if [[ $PARAM_DRYRUN -eq 0 ]]; then
-
         echo "Not a try run"
     else
         echo "This is a dry run"
@@ -72,17 +71,16 @@ DockerTags() {
     if [ "$LATEST" == "$PARAM_VERSION" ]; then
         echo "$(date +'%d %B %Y - %k:%M') - Tag: latest ${PARAM_VERSION_CLASSIFIER} is an alias of ${LATEST}, tag update is required"
 
-        echo latest "${PARAM_VERSION_CLASSIFIER}" is : "$LATEST" , require tag update
+        # echo latest "${PARAM_VERSION_CLASSIFIER}" is : "$LATEST" , require tag update
     else
         echo "$(date +'%d %B %Y - %k:%M') - Tag: latest is an alias of ${PARAM_VERSION_CLASSIFIER}, unchanged"
 
-        echo latest "${PARAM_VERSION_CLASSIFIER}" is : "$LATEST" , unchanged
-        if [[ $PARAM_DRYRUN -eq 0 ]]; then
-
-            echo "Not a try run"
-        else
-            echo "This is a dry run"
-        if
+        # echo latest "${PARAM_VERSION_CLASSIFIER}" is : "$LATEST" , unchanged
+        # if [[ $PARAM_DRYRUN -eq 0 ]]; then
+        #     echo "Not a try run"
+        # else
+        #     echo "This is a dry run"
+        # if
     fi
 
     if [ "$MATCHING1" == "$PARAM_VERSION" ]; then
