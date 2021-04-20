@@ -49,7 +49,7 @@ steps:
       name: Verifying version in environment variable
       command: |
         echo ${PARAM_VERSION}
-        echo ${ABCD}        
+        echo ${ABCD}
   - run:
       environment:
         PARAM_ORG: <<parameters.org>>
