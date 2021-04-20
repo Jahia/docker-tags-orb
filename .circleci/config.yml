@@ -38,9 +38,9 @@ jobs:
           version: "8.0.3.0-SNAPSHOT"
           repo: "jahia-ee-dev"
           dry-run: true # Replace by false to actually perform the tagging
-      - run: 
+      - run:
           name: Setting version file
-          command: | 
+          command: |
             echo "8.0.3.0" > myVersion
             cat myVersion
       - docker-tags-orb/docker-tags:
