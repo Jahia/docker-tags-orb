@@ -7,10 +7,6 @@ parameters:
     type: string
     default: "8.0.2.0"
     description: "Version string or path to version file to run the check towards"
-  is-version-file:
-    type: boolean
-    default: false
-    description: "Is the version parameter a file ?"
   org:
     type: string
     default: "jahia"
@@ -35,11 +31,7 @@ steps:
   - run:
       name: Handle version parameter (file or version string)
       command: |
-        if [[ << parameters.is-version-file >> -eq true ]]; then
-          if [[ ! -e << parameters.version >> ]]; then
-            echo "ERROR: Unable to find file << parameters.version >>"
-            exit 1
-          fi
+        if [[ -e << parameters.version >> ]]; then
           echo 'export PARAM_VERSION="$(cat << parameters.version >>)"' >> $BASH_ENV
           echo 'export ABCD="$(cat << parameters.version >>)"' >> $BASH_ENV
         else
