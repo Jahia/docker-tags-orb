@@ -43,6 +43,7 @@ steps:
           echo 'export PARAM_VERSION="$(cat << parameters.version >>)"' >> $BASH_ENV
           echo 'export ABCD="$(cat << parameters.version >>)"' >> $BASH_ENV
         else
+          echo 'export PARAM_VERSION="<< parameters.version >>"' >> $BASH_ENV
           echo 'export ABCD="<< parameters.version >>"' >> $BASH_ENV
         fi
   - run:
