@@ -45,7 +45,7 @@ jobs:
             cat jahia-version
       - docker-tags-orb/docker-tags:
           version: "jahia-version"
-          repo: "jahia-ee-dev"
+          repo: "jahia-ee"
           dry-run: true # Replace by false to actually perform the tagging
 
 workflows:
