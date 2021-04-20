@@ -132,6 +132,7 @@ DockerTags() {
 
 Main() {
     echo "$(date +'%d %B %Y - %k:%M') - Received tagging request for: ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION}"
+    echo "$(date +'%d %B %Y - %k:%M') - Received tagging request for: ${PARAM_ORG}/${PARAM_REPO}:${PVERSION}"
     Setup
     DockerLogin
     GetToken
