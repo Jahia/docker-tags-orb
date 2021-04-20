@@ -12,6 +12,8 @@ A CircleCI orb to facilitate the tagging of Docker images and the creation of sh
 
 When provided with a version, the Orb will automatically check other versions already published to the registry (only Docker Hub for now) and determine all of the tags that needs to be generated.
 
+The orb can also be provided with a path to a file containing a version.
+
 For example, if releasing version 8.2.0.1, the orb will automatically created the following alliases:
 * 8
 * 8.2
