@@ -41,12 +41,15 @@ steps:
             exit 1
           fi
           echo 'export PARAM_VERSION="$(cat << parameters.version >>)"' >> $BASH_ENV
-          echo 'export PVERSION="$(cat << parameters.version >>)"' >> $BASH_ENV
+          echo 'export ABCD="$(cat << parameters.version >>)"' >> $BASH_ENV
         else
-          echo 'export PVERSION="<< parameters.version >>"' >> $BASH_ENV
+          echo 'export ABCD="<< parameters.version >>"' >> $BASH_ENV
         fi
+  - run:
+      name: Verifying version in environment variable
+      command: |
         echo ${PARAM_VERSION}
-        echo ${PVERSION}
+        echo ${ABCD}        
   - run:
       environment:
         PARAM_ORG: <<parameters.org>>
