@@ -36,7 +36,7 @@ steps:
       name: Handle version parameter (file or version string)
       command: |
         if [[ << parameters.version >> -eq 1 ]]; then
-          if [[ ! -e FILE ]]; then
+          if [[ ! -e << parameters.version >> ]]; then
             echo "ERROR: Unable to find file << parameters.version >>"
             exit 1
           fi
