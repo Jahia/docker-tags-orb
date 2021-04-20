@@ -6,7 +6,11 @@ parameters:
   version:
     type: string
     default: "8.0.2.0"
-    description: "Version to run the check towards"
+    description: "Version string or path to version file to run the check towards"
+  is-version-file:
+    type: boolean
+    default: false
+    description: "Is the version parameter a file ?"    
   org:
     type: string
     default: "jahia"
@@ -29,8 +33,15 @@ parameters:
     description: "Dry Run: Does not push changes if true"
 steps:
   - run:
+      name: Handle version parameter (file or version string)
+      command: |
+        if [[ << parameters.is-version-file >> -eq 1 ]]; then
+          echo 'export PARAM_VERSION="$(cat << parameters.version >>)"' >> $BASH_ENV
+        else
+          echo 'export PARAM_VERSION="<< parameters.version >>"' >> $BASH_ENV
+        fi
+  - run:
       environment:
-        PARAM_VERSION: <<parameters.version>>
         PARAM_ORG: <<parameters.org>>
         PARAM_REPO: <<parameters.repo>>
         PARAM_USERNAME: "$<<parameters.username>>"
