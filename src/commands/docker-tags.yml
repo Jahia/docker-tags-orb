@@ -10,7 +10,7 @@ parameters:
   is-version-file:
     type: boolean
     default: false
-    description: "Is the version parameter a file ?"    
+    description: "Is the version parameter a file ?"
   org:
     type: string
     default: "jahia"
