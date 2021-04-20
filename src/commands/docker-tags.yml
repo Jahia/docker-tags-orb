@@ -35,9 +35,9 @@ steps:
   - run:
       name: Handle version parameter (file or version string)
       command: |
-        if [[ << parameters.is-version-file >> -eq 1 ]]; then
+        if [[ << parameters.version >> -eq 1 ]]; then
           if [[ ! -e FILE ]]; then
-            echo "$(date +'%d %B %Y - %k:%M') - ERROR: Unabel to find file << parameters.is-version-file >>"
+            echo "ERROR: Unable to find file << parameters.version >>"
             exit 1
           fi
           echo 'export PARAM_VERSION="$(cat << parameters.version >>)"' >> $BASH_ENV
