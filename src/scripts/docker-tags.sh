@@ -42,8 +42,6 @@ GetVersions() {
 }
 
 DockerTags() {
-    echo "$(date +'%d %B %Y - %k:%M') - Received tagging request for: ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION}"
-
     REGISTRY_VERSIONS=$(echo "$VERSIONS" | awk -vORS=, '{ print $1 }' | sed 's/,$/\n/')   
     echo "$(date +'%d %B %Y - %k:%M') - The following tags exists in ${PARAM_ORG}/${PARAM_REPO}: ${REGISTRY_VERSIONS}"
 
@@ -133,6 +131,7 @@ DockerTags() {
 }
 
 Main() {
+    echo "$(date +'%d %B %Y - %k:%M') - Received tagging request for: ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION}"
     Setup
     DockerLogin
     GetToken
