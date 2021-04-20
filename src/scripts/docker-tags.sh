@@ -2,6 +2,7 @@ Setup() {
     echo "$(date +'%d %B %Y - %k:%M') - Setup: Evaluating the variables coming from context"
     USERNAME=$(eval echo "$PARAM_USERNAME")
     PASSWORD=$(eval echo "$PARAM_PASSWORD")
+    PVERSIONB=$(eval echo "$PVERSION")
 
     PARAM_VERSION_MAJOR=$(echo "${PARAM_VERSION}" | awk -F . '{print $1}' )
     PARAM_VERSION_MINOR=$(echo "${PARAM_VERSION}" | awk -F . '{print $2}' )
@@ -132,7 +133,7 @@ DockerTags() {
 
 Main() {
     echo "$(date +'%d %B %Y - %k:%M') - Received tagging request for: ${PARAM_ORG}/${PARAM_REPO}:${PARAM_VERSION}"
-    echo "$(date +'%d %B %Y - %k:%M') - Received tagging request for: ${PARAM_ORG}/${PARAM_REPO}:${PVERSION}"
+    echo "$(date +'%d %B %Y - %k:%M') - Received tagging request for: ${PARAM_ORG}/${PARAM_REPO}:${PVERSIONB}"
     Setup
     DockerLogin
     GetToken
