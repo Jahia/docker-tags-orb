@@ -1,7 +1,5 @@
 Setup() {    
     echo "$(date +'%d %B %Y - %k:%M') - Setup: Evaluating the variables coming from context"
-    USERNAME=$(eval echo "$PARAM_USERNAME")
-    PASSWORD=$(eval echo "$PARAM_PASSWORD")
 
     PARAM_VERSION_MAJOR=$(echo "${PARAM_VERSION}" | awk -F . '{print $1}' )
     PARAM_VERSION_MINOR=$(echo "${PARAM_VERSION}" | awk -F . '{print $2}' )
@@ -23,7 +21,7 @@ Setup() {
 
 DockerLogin() {
     if [[ $PARAM_DRYRUN -eq 0 ]]; then
-        echo "$PASSWORD" | docker login -u "$USERNAME" --password-stdin
+        echo "$PARAM_PASSWORD" | docker login -u "$PARAM_USERNAME" --password-stdin
     else
         echo "$(date +'%d %B %Y - %k:%M') - This is a dry-run, skipping docker login"
     fi
@@ -31,7 +29,7 @@ DockerLogin() {
 
 GetToken() {
     echo "$(date +'%d %B %Y - %k:%M') - GetToken: Fetching Token from container registry: ${AUTH_SERVICE}"
-    TOKEN=$(curl -s -X GET -u "${USERNAME}":"${PASSWORD}" "https://${AUTH_DOMAIN}/token?service=${AUTH_SERVICE}&scope=${AUTH_SCOPE}&offline_token=${AUTH_OFFLINE_TOKEN}&client_id=${AUTH_CLIENT_ID}" | jq -r '.token')
+    TOKEN=$(curl -s -X GET -u "${PARAM_USERNAME}":"${PARAM_PASSWORD}" "https://${AUTH_DOMAIN}/token?service=${AUTH_SERVICE}&scope=${AUTH_SCOPE}&offline_token=${AUTH_OFFLINE_TOKEN}&client_id=${AUTH_CLIENT_ID}" | jq -r '.token')
     echo "$(date +'%d %B %Y - %k:%M') - GetToken: Fetch complete"
 }
 
